@@ -76,6 +76,13 @@
                 <span>Report</span>
             </button>
             <mat-divider></mat-divider>
+            <<mat-divider></mat-divider>
+            <button class="myButton" mat-menu-item (click)="sidenav.toggle()"
+                 routerLink="/pages/products" style="cursor: pointer">  <!-- ← Cambiado a /pages/products -->
+                <mat-icon>inventory</mat-icon>
+                 <span>Product</span>
+            </button>
+        <mat-divider></mat-divider>
         </mat-sidenav>
 
         <mat-sidenav-content>

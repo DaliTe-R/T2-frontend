@@ -1,0 +1,107 @@
+/* product-list-component.css */
+.product-name {
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.description-text {
+  max-width: 200px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.price-badge {
+  font-weight: 600;
+  color: #27ae60;
+  background-color: #d5f4e6;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+.stock-badge, .date-badge {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 0.9em;
+}
+
+/* Clases para estados de stock */
+.stock-normal {
+  background-color: #e8f5e8;
+  color: #27ae60;
+}
+
+.stock-low {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.stock-out {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+/* Clases para estados de fecha */
+.date-normal {
+  background-color: #e8f5e8;
+  color: #27ae60;
+}
+
+.date-expiring {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.date-expired {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+/* Badges para categorías */
+.badge {
+  font-size: 0.75em;
+  padding: 4px 8px;
+}
+
+/* Botones de acción */
+.btn-group-sm .btn {
+  padding: 0.25rem 0.5rem;
+}
+
+/* Estado vacío */
+.empty-state {
+  padding: 2rem;
+}
+
+.empty-state i {
+  opacity: 0.5;
+}
+
+/* Efectos hover mejorados */
+.table-hover tbody tr:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: all 0.2s ease;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .table-responsive {
+    font-size: 0.875rem;
+  }
+  
+  .description-text {
+    max-width: 150px;
+  }
+  
+  .btn-group {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  
+  .btn-group .btn {
+    margin: 0;
+  }
+}
