@@ -6,19 +6,42 @@ import { ProductListComponent } from './pages/product-list-component/product-lis
 import { ProductFormComponent } from './pages/product-form-component/product-form-component';
 
 export const routes: Routes = [
-    { path: 'pages/patient', component: PatientComponent,
+    // Ruta por defecto
+    { path: '', redirectTo: '/pages/products', pathMatch: 'full' },
+    
+    // Rutas de pacientes
+    { 
+        path: 'pages/patient', 
+        component: PatientComponent,
         children: [
             { path: 'new', component: PatientEditComponent },
             { path: 'edit/:id', component: PatientEditComponent },
-            
         ]
     },
-    { path: 'pages/medic', component: MedicComponent },
-    { path: 'pages/products', component: ProductListComponent,
-    children: [
-        { path: 'new', component: ProductFormComponent },
-        { path: 'edit/:id', component: ProductFormComponent }
-    ]
-}
-];
+    
+    // Rutas de médicos
+    { 
+        path: 'pages/medic', 
+        component: MedicComponent 
+    },
 
+     { 
+    path: 'pages/products', 
+    component: ProductListComponent 
+    },
+     { 
+    path: 'pages/products/new', 
+    component: ProductFormComponent 
+     },
+    { 
+    path: 'pages/products/edit/:id', 
+    component: ProductFormComponent 
+    },
+  
+  // Ruta comodín
+  { path: '**', redirectTo: '/pages/products' }
+    // Rutas de productos - CON RUTAS HIJA CORRECTAS
+    
+];
+    
+    

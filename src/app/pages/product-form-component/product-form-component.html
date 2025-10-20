@@ -1,95 +1,204 @@
 <div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>{{ isEdit ? 'Editar Producto' : 'Nuevo Producto' }}</h2>
+    <button class="btn btn-secondary" (click)="onCancel()">
+      <i class="fas fa-arrow-left me-2"></i>Volver a la lista
+    </button>
+  </div>
+
   <div class="card">
-    <div class="card-header bg-primary text-white">
-      <h4 class="mb-0">{{ isEdit ? 'Editar Producto' : 'Nuevo Producto' }}</h4>
-    </div>
     <div class="card-body">
-      <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+      <form [formGroup]="productForm" (ngSubmit)="onSubmit()" novalidate>
         
-        <!-- Nombre -->
-        <div class="mb-3">
-          <label class="form-label">Nombre del Producto *</label>
-          <input type="text" class="form-control" formControlName="name" placeholder="Ingrese el nombre">
+        <!-- Fila 1: Nombre y Presentación -->
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label for="name" class="form-label">Nombre del Producto *</label>
+            <input 
+              type="text" 
+              class="form-control" 
+              id="name"
+              formControlName="name"
+              [class.is-invalid]="name?.invalid && (name?.dirty || name?.touched)"
+              [class.is-valid]="name?.valid && (name?.dirty || name?.touched)"
+              placeholder="Ingrese el nombre del producto">
+            <div class="invalid-feedback" *ngIf="name?.invalid && (name?.dirty || name?.touched)">
+              {{ getErrorMessage('name') }}
+            </div>
+          </div>
+          
+          <div class="col-md-6">
+            <label for="presentation" class="form-label">Presentación *</label>
+            <input 
+              type="text" 
+              class="form-control" 
+              id="presentation"
+              formControlName="presentation"
+              [class.is-invalid]="presentation?.invalid && (presentation?.dirty || presentation?.touched)"
+              [class.is-valid]="presentation?.valid && (presentation?.dirty || presentation?.touched)"
+              placeholder="Ej: Tabletas, Jarabe, Cápsulas, etc.">
+            <div class="invalid-feedback" *ngIf="presentation?.invalid && (presentation?.dirty || presentation?.touched)">
+              {{ getErrorMessage('presentation') }}
+            </div>
+          </div>
         </div>
 
         <!-- Descripción -->
-        <div class="mb-3">
-          <label class="form-label">Descripción *</label>
-          <textarea class="form-control" formControlName="description" rows="3" placeholder="Ingrese la descripción"></textarea>
-        </div>
-
-        <div class="row">
-          <!-- Presentación -->
-          <div class="col-md-6 mb-3">
-            <label class="form-label">Presentación *</label>
-            <input type="text" class="form-control" formControlName="presentation" placeholder="Ej: Tabletas, Jarabe">
-          </div>
-
-          <!-- Precio Unitario -->
-          <div class="col-md-6 mb-3">
-            <label class="form-label">Precio Unitario (S/) *</label>
-            <input type="number" step="0.01" class="form-control" formControlName="unitPrice" placeholder="0.00">
+        <div class="row mb-3">
+          <div class="col-12">
+            <label for="description" class="form-label">Descripción *</label>
+            <textarea 
+              class="form-control" 
+              id="description"
+              formControlName="description"
+              rows="3"
+              [class.is-invalid]="description?.invalid && (description?.dirty || description?.touched)"
+              [class.is-valid]="description?.valid && (description?.dirty || description?.touched)"
+              placeholder="Descripción detallada del producto"></textarea>
+            <div class="invalid-feedback" *ngIf="description?.invalid && (description?.dirty || description?.touched)">
+              {{ getErrorMessage('description') }}
+            </div>
           </div>
         </div>
 
-        <div class="row">
-          <!-- Stock -->
-          <div class="col-md-6 mb-3">
-            <label class="form-label">Stock *</label>
-            <input type="number" class="form-control" formControlName="stock" placeholder="0">
+        <!-- Fila 2: Precio y Stock -->
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label for="unitPrice" class="form-label">Precio Unitario (S/) *</label>
+            <input 
+              type="number" 
+              class="form-control" 
+              id="unitPrice"
+              formControlName="unitPrice"
+              min="0.01"
+              step="0.01"
+              [class.is-invalid]="unitPrice?.invalid && (unitPrice?.dirty || unitPrice?.touched)"
+              [class.is-valid]="unitPrice?.valid && (unitPrice?.dirty || unitPrice?.touched)"
+              placeholder="0.00">
+            <div class="invalid-feedback" *ngIf="unitPrice?.invalid && (unitPrice?.dirty || unitPrice?.touched)">
+              {{ getErrorMessage('unitPrice') }}
+            </div>
           </div>
-
-          <!-- Fecha de Expiración -->
-          <div class="col-md-6 mb-3">
-            <label class="form-label">Fecha de Expiración *</label>
-            <input type="date" class="form-control" formControlName="expired">
+          
+          <div class="col-md-6">
+            <label for="stock" class="form-label">Stock *</label>
+            <input 
+              type="number" 
+              class="form-control" 
+              id="stock"
+              formControlName="stock"
+              min="0"
+              [class.is-invalid]="stock?.invalid && (stock?.dirty || stock?.touched)"
+              [class.is-valid]="stock?.valid && (stock?.dirty || stock?.touched)"
+              placeholder="0">
+            <div class="invalid-feedback" *ngIf="stock?.invalid && (stock?.dirty || stock?.touched)">
+              {{ getErrorMessage('stock') }}
+            </div>
           </div>
         </div>
 
-        <div class="row">
-          <!-- Categoría -->
-          <div class="col-md-4 mb-3">
-            <label class="form-label">Categoría *</label>
-            <select class="form-select" formControlName="category">
-              <option value="">Seleccione categoría</option>
+        <!-- Fila 3: Fecha de Expiración -->
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label for="expired" class="form-label">Fecha de Expiración *</label>
+            <input 
+              type="date" 
+              class="form-control" 
+              id="expired"
+              formControlName="expired"
+              [class.is-invalid]="expired?.invalid && (expired?.dirty || expired?.touched)"
+              [class.is-valid]="expired?.valid && (expired?.dirty || expired?.touched)">
+            <div class="invalid-feedback" *ngIf="expired?.invalid && (expired?.dirty || expired?.touched)">
+              {{ getErrorMessage('expired') }}
+            </div>
+          </div>
+        </div>
+
+        <!-- Fila 4: Categoría, Familia y Laboratorio -->
+        <div class="row mb-3">
+          <div class="col-md-4">
+            <label for="category" class="form-label">Categoría *</label>
+            <select 
+              class="form-select" 
+              id="category"
+              formControlName="category"
+              [class.is-invalid]="category?.invalid && (category?.dirty || category?.touched)"
+              [class.is-valid]="category?.valid && (category?.dirty || category?.touched)">
+              <option value="">Seleccione una categoría</option>
               <option *ngFor="let cat of categories" [value]="cat.idCategory">
                 {{ cat.name }}
               </option>
             </select>
+            <div class="invalid-feedback" *ngIf="category?.invalid && (category?.dirty || category?.touched)">
+              {{ getErrorMessage('category') }}
+            </div>
           </div>
-
-          <!-- Familia -->
-          <div class="col-md-4 mb-3">
-            <label class="form-label">Familia *</label>
-            <select class="form-select" formControlName="family">
-              <option value="">Seleccione familia</option>
+          
+          <div class="col-md-4">
+            <label for="family" class="form-label">Familia *</label>
+            <select 
+              class="form-select" 
+              id="family"
+              formControlName="family"
+              [class.is-invalid]="family?.invalid && (family?.dirty || family?.touched)"
+              [class.is-valid]="family?.valid && (family?.dirty || family?.touched)">
+              <option value="">Seleccione una familia</option>
               <option *ngFor="let fam of families" [value]="fam.idFamily">
                 {{ fam.name }}
               </option>
             </select>
+            <div class="invalid-feedback" *ngIf="family?.invalid && (family?.dirty || family?.touched)">
+              {{ getErrorMessage('family') }}
+            </div>
           </div>
-
-          <!-- Laboratorio -->
-          <div class="col-md-4 mb-3">
-            <label class="form-label">Laboratorio *</label>
-            <select class="form-select" formControlName="laboratory">
-              <option value="">Seleccione laboratorio</option>
+          
+          <div class="col-md-4">
+            <label for="laboratory" class="form-label">Laboratorio *</label>
+            <select 
+              class="form-select" 
+              id="laboratory"
+              formControlName="laboratory"
+              [class.is-invalid]="laboratory?.invalid && (laboratory?.dirty || laboratory?.touched)"
+              [class.is-valid]="laboratory?.valid && (laboratory?.dirty || laboratory?.touched)">
+              <option value="">Seleccione un laboratorio</option>
               <option *ngFor="let lab of laboratories" [value]="lab.idLaboratory">
                 {{ lab.name }}
               </option>
             </select>
+            <div class="invalid-feedback" *ngIf="laboratory?.invalid && (laboratory?.dirty || laboratory?.touched)">
+              {{ getErrorMessage('laboratory') }}
+            </div>
           </div>
         </div>
 
-        <!-- Botones -->
-        <div class="d-flex gap-2">
-          <button type="submit" class="btn btn-primary">
-            {{ isEdit ? 'Actualizar' : 'Crear' }} Producto
-          </button>
-          <button type="button" class="btn btn-secondary" routerLink="/pages/products">
-            Cancelar
-          </button>
+        <!-- Botones de acción -->
+        <div class="row mt-4">
+          <div class="col-12">
+            <div class="d-flex gap-2 justify-content-end">
+              <button type="button" class="btn btn-secondary" (click)="onCancel()">
+                <i class="fas fa-times me-2"></i>Cancelar
+              </button>
+              <button type="submit" class="btn btn-primary" [disabled]="productForm.invalid">
+                <i class="fas fa-save me-2"></i>
+                {{ isEdit ? 'Actualizar' : 'Guardar' }} Producto
+              </button>
+            </div>
+          </div>
         </div>
+
+        <!-- Información del formulario -->
+        <div class="row mt-3">
+          <div class="col-12">
+            <div class="alert alert-info small">
+              <i class="fas fa-info-circle me-2"></i>
+              Los campos marcados con * son obligatorios.
+              <span *ngIf="productForm.invalid" class="text-danger">
+                Por favor, complete todos los campos requeridos.
+              </span>
+            </div>
+          </div>
+        </div>
+
       </form>
     </div>
   </div>

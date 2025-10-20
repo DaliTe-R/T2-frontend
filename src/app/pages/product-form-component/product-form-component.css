@@ -1,68 +1,54 @@
-/* product-form-component.css */
 .card {
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   border: none;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
 }
 
-.card-header {
-  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+.card-body {
+  padding: 2rem;
 }
 
 .form-label {
-  font-weight: 600;
+  font-weight: 500;
   color: #495057;
-  margin-bottom: 8px;
+  margin-bottom: 0.5rem;
 }
 
-.form-control:focus, .form-select:focus {
-  border-color: #3f51b5;
-  box-shadow: 0 0 0 0.2rem rgba(63, 81, 181, 0.25);
+.form-control:focus,
+.form-select:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
 }
 
 .is-valid {
-  border-color: #198754 !important;
+  border-color: #198754;
 }
 
 .is-invalid {
-  border-color: #dc3545 !important;
+  border-color: #dc3545;
 }
 
 .btn {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  padding: 0.5rem 1.5rem;
 }
 
-.btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
+.alert-info {
+  background-color: #e7f3ff;
+  border-color: #b6d4fe;
+  color: #055160;
 }
 
-.form-text {
-  font-size: 0.875rem;
-  color: #6c757d;
-  margin-top: 4px;
-}
-
-.alert {
-  margin-bottom: 0;
-}
-
-/* Responsive adjustments */
+/* Responsive */
 @media (max-width: 768px) {
-  .container {
-    padding: 0 10px;
-  }
-  
   .card-body {
     padding: 1rem;
   }
   
-  .d-flex {
+  .d-flex.gap-2 {
     flex-direction: column;
   }
   
   .btn {
-    justify-content: center;
+    width: 100%;
+    margin-bottom: 0.5rem;
   }
 }
